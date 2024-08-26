@@ -130,3 +130,53 @@ The communication between the Arduino and the ESP8266/ESP32 module is achieved u
   - Simulate closing and opening the eyes by triggering the sensor.
   - Observe the behavior of the LED, buzzer, and relay module.
   - Check if an email notification is sent when the eyes remain closed for 5 seconds.
+
+Certainly! Here's how the connections between the components in the IoT Anti Sleep Driving System are made:
+
+
+
+## 🔌 Connections
+
+### **1. Arduino Board:**
+
+- **Eye-Tracking Sensor:**
+  - **VCC**: Connect to the 5V pin on the Arduino.
+  - **GND**: Connect to the GND pin on the Arduino.
+  - **Data/Output Pin**: Connect to the designated sensor input pin on the Arduino (e.g., `eyeSensorPin = 2`).
+
+- **Relay Module:**
+  - **VCC**: Connect to the 5V pin on the Arduino.
+  - **GND**: Connect to the GND pin on the Arduino.
+  - **IN**: Connect to the control pin on the Arduino (e.g., `relayPin = 3`).
+  - **COM**: Common terminal connected to the relay.
+  - **NO/NC**: Normally Open or Normally Closed terminal connected to the device that the relay controls (e.g., car ignition circuit).
+
+- **LED:**
+  - **Anode (+)**: Connect to the LED control pin on the Arduino (e.g., `led = 4`).
+  - **Cathode (-)**: Connect to the GND pin on the Arduino via a resistor (typically 220Ω).
+
+- **Buzzer:**
+  - **Positive Terminal**: Connect to the buzzer control pin on the Arduino (e.g., `buzzer = 5`).
+  - **Negative Terminal**: Connect to the GND pin on the Arduino.
+
+### **2. ESP8266/ESP32 Module:**
+
+- **VCC**: Connect to the 3.3V pin on the Arduino (or to an external 3.3V power source if needed).
+- **GND**: Connect to the GND pin on the Arduino.
+- **TX (Transmit)**: Connect to the RX (Receive) pin on the Arduino (e.g., `SoftwareSerial RX pin`).
+- **RX (Receive)**: Connect to the TX (Transmit) pin on the Arduino (e.g., `SoftwareSerial TX pin`).
+- **EN (Enable)**: Connect to the 3.3V pin on the module or Arduino.
+
+### **3. Power Supply:**
+
+- **Arduino Board**: Can be powered via USB or an external 9V battery.
+- **ESP8266/ESP32**: Ensure it's powered with 3.3V from the Arduino or an external regulator, as it cannot handle 5V directly.
+
+---
+
+### 🔄 **Data Transfer Connection:**
+
+- **Arduino to ESP8266/ESP32:**
+  - The Arduino sends data to the ESP8266/ESP32 module via the `SoftwareSerial` connection. The `TX` pin on the Arduino is connected to the `RX` pin on the ESP8266/ESP32, and the `RX` pin on the Arduino is connected to the `TX` pin on the ESP8266/ESP32.
+  - The communication allows the Arduino to instruct the ESP8266/ESP32 module when to send the email alert based on the sensor data.
+
